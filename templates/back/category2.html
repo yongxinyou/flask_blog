@@ -1,0 +1,87 @@
+{% extends 'back/base_main.html' %}
+
+{% block title %}
+    编辑栏目
+{% endblock %}
+
+{% block css%}
+<link rel="stylesheet" type="text/css" href="/static/back/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/static/back/css/style.css">
+<link rel="stylesheet" type="text/css" href="/static/back/css/font-awesome.min.css">
+<link rel="apple-touch-icon-precomposed" href="/static/back/images/icon/icon.png">
+<link rel="shortcut icon" href="/static/back/images/icon/favicon.ico">
+{% endblock %}
+
+{% block js %}
+<script src="/static/back/js/jquery-2.1.4.min.js"></script>
+<script src="/static/back/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="/static/back/js/html5shiv.min.js" type="text/javascript"></script>
+<script src="/static/back/js/respond.min.js" type="text/javascript"></script>
+<script src="/static/back/js/selectivizr-min.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+      <div class="row">
+        <div class="col-md-5">
+          <h1 class="page-header">添加</h1>
+          <span style="color: red">
+                {{ message }}
+            </span>
+          <form action="" method="post" autocomplete="off">
+            {{ form.csrf_token }}
+
+            {{ message }}
+            <div class="form-group">
+              <label for="category-name">栏目名称</label>
+              <input type="text" id="category-name" name="name" class="form-control" {% if category2 %} value="{{ category2.c_name }}" {% endif %} placeholder="在此处输入栏目名称" required autocomplete="off">
+              <span class="prompt-text">这将是它在站点上显示的名字。</span> </div>
+
+            <div class="form-group">
+              <label for="category-alias">栏目别名</label>
+              <input type="text" id="category-alias" name="nickname" class="form-control" {% if category2 %} value="{{ category2.nickname }} " {% endif %} placeholder="在此处输入栏目别名" required autocomplete="off">
+              <span class="prompt-text">“别名”是在URL中使用的别称，它可以令URL更美观。</span> </div>
+
+            <div class="form-group">
+              <label for="category-keywords">关键字</label>
+              <input type="text" id="category-keywords" name="keywords" class="form-control"  {% if category2 %} value="{{ category2.keywords }}"  {% endif %} placeholder="在此处输入栏目关键字" autocomplete="off">
+              <span class="prompt-text">关键字会出现在网页的keywords属性中。</span> </div>
+
+            <button class="btn btn-primary" type="submit" name="submit">修改</button>
+            
+          </form>
+    </div>
+{% endblock %}
+
+
+{% block js2 %}
+  <script src="/static/back/js/bootstrap.min.js"></script>
+  <script src="/static/back/js/admin-scripts.js"></script>
+
+<script>
+//是否确认删除
+$(function(){
+	$("#main table tbody tr td a").click(function(){
+		var name = $(this);
+		var id = name.attr("rel"); //对应id
+		if (event.srcElement.outerText === "删除")
+		{
+			if(window.confirm("此操作不可逆，是否确认？"))
+			{
+				$.ajax({
+					type: "POST",
+					url: "/Category/delete",
+					data: "id=" + id,
+					cache: false, //不缓存此页面
+					success: function (data) {
+						window.location.reload();
+					}
+				});
+			};
+		};
+	});
+});
+</script>
+{% endblock %}
+
+

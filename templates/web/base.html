@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>
+    {% block title %}
+    {% endblock %}
+</title>
+<meta name="keywords" content="个人博客,杨青个人博客,个人博客模板,杨青" />
+<meta name="description" content="杨青个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css%}
+    {% endblock %}
+
+    {% block js %}
+    {% endblock %}
+<body>
+<header class="header-navigation" id="header">
+  <nav>
+      <div class="logo">
+          <a href="{{ url_for('web.index') }}">个人博客</a>
+          <a href="{{ url_for('back.login') }}">管理员登录</a>
+          <a href="{{ url_for('back.register') }}">管理员注册</a>
+      </div>
+    <h2 id="mnavh"><span class="navicon"></span></h2>
+    <ul id="starlist">
+      <li><a href="{{ url_for('web.index') }}">网站首页</a></li>
+      <li><a href="{{ url_for('web.list') }}">我的文章</a></li>
+      <li><a href="{{ url_for('web.about') }}">关于我</a></li>
+      <li><a href="{{ url_for('web.gbook') }}">留言</a></li>
+      <li><a href="{{ url_for('web.info') }}">内容页</a></li>
+<!--      <li><a href="infopic.html">内容页</a></li>-->
+    </ul>
+</nav>
+</header>
+<article>
+  <aside class="l_box">
+      {% block left %}
+      {% endblock %}
+  </aside>
+  <main class="r_box">
+      {% block right %}
+      {% endblock %}
+  </main>
+</article>
+<footer>
+  <p>Design by <a href="http://www.yangqq.com" target="_blank">杨青个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
+</footer>
+<a href="#" class="cd-top">Top</a>
+</body>
+</html>
+
